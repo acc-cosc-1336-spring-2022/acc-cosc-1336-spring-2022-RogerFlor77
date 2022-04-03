@@ -139,3 +139,5 @@ def get_dna_complement(dna):
     if dna_list[9] == "C":
         dna_list[9] = "G"
     return dna
+
+#test
