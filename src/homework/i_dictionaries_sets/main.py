@@ -1,32 +1,46 @@
-import dictionary
+import sets
 
-menu_selection = "y"
-while menu_selection == "y":
-    print('\nMenu\n1-Get p disance matrix\n2-Exit')
-    selection = int(input('Please select menu item 1 or 2: '))
+main_decision = 'y'
+decision = 'y'
+widgets = {}
 
-    if selection == 1: 
-        print('Enter your DNA Strings')
-        dataset = []
-        again = "y"
-        while again == 'y':
-            DNA_string = input('Enter a DNA String:')
-            DNA_list = list(DNA_string)
-            dataset.append(DNA_list)
-            print('Do you want to add another?')
-            again = input('Enter "y" for yes, n for no: ')
-        print('Here are the strings')
-        for string in dataset:
-            print(string)
-        print('The p distance matrix is:')
-        p_distance_matrix = dictionary.get_p_distance_matrix(dataset)
-        for row in p_distance_matrix:
-            for item in row:
-                print(format(item, '8.3f'), end = ' ')
-            print('')
+main_decision = input("1 - Add or Update item:\tPress 1\n2-Delete Item\t\tPress 2\n3-Exit:\t\t\tPress 3")
 
-    elif selection == 2: 
-        print('Program is done')
+while main_decision == "1":
+    widget_name = input("Please enter the name of the widget you want to add or update")
+    quantity = int(input("Please enter the name of the widget you want to add or update"))
+    print(quantity, "x", widget_name, "will be added and if it already exists", widget_name, "will be incremented by x", quantity)
+    widgets = sets.add_inventory(widgets, widget_name, quantity)
+    print(widgets)
+    decision = input("Do you have another widget to add?")
+    
+    while decision.lower() == "y":
+        widget_name = input("Please enter the name of the widget you want to add or update")
+        print(widget_name, "will be added and if it already exists", widget_name, "will be incremented")
+        quantity = int(input("Please enter the quantity being added"))
+        print(quantity, "x", widget_name, "will be added and if it already exists", widget_name, "will be incremented b x", quantity)
+        widgets = sets.add_inventory(widgets, widget_name, quantity)
+        print(widgets)
+        decision = input("Do you have another widget to add?")
+    main_decision = input("1-Add or Update Item:\tPress 1\n2-Delete Item\t\tPress 2\n3-Exit:\t\t\tPress 3")
 
-    else:
-        print("Invalid Entry")
+    while main_decision == "2":
+        print(widgets)
+        widget_name = input("Please enter the name of the widget you want to remove")
+        print(widget_name, "will be remove")
+        sets.remove_inventory(widgets, widget_name)
+        print(widgets)
+        decision = input("Do you have another widget to remove")
+
+        while decision.lower() == "y":
+            print(widgets)
+            widget_name = input("Please enter the name of the widget you want to remove")
+            print(widget_name, "will be removed")
+            sets.remove_inventory(widgets, widget_name)
+            print(widgets)
+            decision = input("Do you have another widget to remove?")
+            main_decision = input("1- Add or Update Item:\tPress 1\n2-Delete Item\t\tPress 2\n3-Exit:\t\t\tPress 3")
+
+            while main_decision == "3":
+                print("Program has ended")
+                quit()

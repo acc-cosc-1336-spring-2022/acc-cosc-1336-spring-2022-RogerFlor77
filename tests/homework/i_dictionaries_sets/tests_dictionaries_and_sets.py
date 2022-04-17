@@ -1,23 +1,29 @@
 import unittest 
 
-from src.homework.i_dictionaries_sets.dictionary import get_p_distance
-from src.homework.i_dictionaries_sets.dictionary import get_p_distance_matrix
+from src.homework.i_dictionaries_sets import add_inventory
+from src.homework.i_dictionaries_sets import remove_inventory_widget
 
 class Test_Config(unittest.TestCase):
+    
+    def test_add_inventory(self):
+        inventory = {}
+        widget_name = "Widget1"
+        widget_quantity = 10
+        add_inventory(inventory, widget_name, widget_quantity)
+        self.assertEqual(inventory[widget_name], 10)
 
-    def test_p_distance(self):
-        dna1 = ['T', 'T', 'T', 'C', 'C', 'A', 'T', 'T', 'T', 'A']
-        dna2 = ['G', 'A', 'T', 'T', 'C', 'A', 'T', 'T', 'T', 'C']
-        self.assertEqual(0.4, get_p_distance(dna1, dna2))
+        widget_quantity = 25
+        add_inventory(inventory, widget_name, widget_quantity)
+        self.assertEqual(inventory[widget_name], 35)
 
-    def test_get_p_distance_matrix(self):
-        dataset = [ ['T', 'T', 'T', 'C', 'C', 'A', 'T', 'T', 'T', 'A'],
-                    ['G', 'A', 'T', 'T', 'C', 'A', 'T', 'T', 'T', 'C']
-                    ['T', 'T', 'T', 'C', 'C', 'A', 'T', 'T,' 'T', 'T']
-                    ['G', 'T', 'T', 'C', 'C', 'A', 'T', 'T', 'T', 'A']  ]
+        widget_quantity = -10
+        add_inventory(inventory, widget_name, widget_quantity)
+        self.assertEqual(inventory[widget_name], 25)
 
-        p_distance_matrix = [   [0.0, 0.4, 0.1, 0.1],
-                                [0.4, 0.0, 0.4, 0.3],
-                                [0.1, 0.4, 0.0, 0.2],
-                                [0.1, 0.3, 0.2, 0.0]    ]
-        self.assertEqual(p_distance_matrix, get_p_distance_matrix(dataset))
+    def test_remove_inventory_widet(self):
+        inventory = {}
+        inventory['widget1'] = 5
+        inventory['widget2'] = 10
+        remove_inventory_widget(inventory, 'widget1')
+        self.assertEqual(1, len(inventory))
+        self.assertEqual(inventory['widget2'], 10)
