@@ -1,5 +1,5 @@
 import files
-from src.homework.f_files_exception.exception import show_inventory
+import exception
 
 
 main_decision = 'y'
@@ -48,6 +48,6 @@ while main_decision == "1":
                 quit()
 
 while main_decision != 1 or 2 or 3:
-    print(show_inventory)
+    print(exception.show_inventory)
 
 
